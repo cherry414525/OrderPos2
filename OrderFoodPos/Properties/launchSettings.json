@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "OrderFoodPos": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7036"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "containerRunArguments": "--init",
+      "httpPort": 30614,
+      "useSSL": false
+    }
+  }
+}

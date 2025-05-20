@@ -52,6 +52,9 @@ builder.Services.AddTransient<ItemService>();
 builder.Services.AddTransient<ItemRepository>();
 builder.Services.AddTransient<TaxRepository>();
 builder.Services.AddTransient<TaxService>();
+builder.Services.AddTransient<ServiceFeeRepository>();
+builder.Services.AddTransient<ServiceFeeService>();
+
 
 // Application Insights isn't enabled by default. See https://aka.ms/AAt8mw4.
 // builder.Services

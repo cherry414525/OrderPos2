@@ -40,7 +40,8 @@ UPDATE StoreTaxSettings
 SET TaxRate = @TaxRate,
 	TaxIncluded = @TaxIncluded,
 	RoundingType = @RoundingType,
-	TaxFreeThreshold = @TaxFreeThreshold
+	TaxFreeThreshold = @TaxFreeThreshold,
+UpdatedAt = GETDATE()
 WHERE StoreId = @StoreId";
             await _dbConnection.ExecuteAsync(sql, model);
         }

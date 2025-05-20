@@ -3,8 +3,48 @@
   "WorkspaceRootPath": "D:\\App\\server\\OrderFoodPos\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|d:\\app\\server\\orderfoodpos\\orderfoodpos\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|solutionrelative:orderfoodpos\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|d:\\app\\server\\orderfoodpos\\orderfoodpos\\controllers\\charges\\taxfunction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|solutionrelative:orderfoodpos\\controllers\\charges\\taxfunction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|d:\\app\\server\\orderfoodpos\\orderfoodpos\\services\\charges\\taxservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|solutionrelative:orderfoodpos\\services\\charges\\taxservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|d:\\app\\server\\orderfoodpos\\orderfoodpos\\repositories\\member\\storeaccountrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|solutionrelative:orderfoodpos\\repositories\\member\\storeaccountrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|d:\\app\\server\\orderfoodpos\\orderfoodpos\\repositories\\charges\\taxrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|solutionrelative:orderfoodpos\\repositories\\charges\\taxrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|d:\\app\\server\\orderfoodpos\\orderfoodpos\\services\\member\\storeaccountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|solutionrelative:orderfoodpos\\services\\member\\storeaccountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|d:\\app\\server\\orderfoodpos\\orderfoodpos\\repositories\\menu\\categoriesrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|solutionrelative:orderfoodpos\\repositories\\menu\\categoriesrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|d:\\app\\server\\orderfoodpos\\orderfoodpos\\controllers\\member\\storeaccountfunction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|solutionrelative:orderfoodpos\\controllers\\member\\storeaccountfunction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|d:\\app\\server\\orderfoodpos\\orderfoodpos\\models\\charges\\taxmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|solutionrelative:orderfoodpos\\models\\charges\\taxmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|d:\\app\\server\\orderfoodpos\\orderfoodpos\\repositories\\menu\\itemrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|solutionrelative:orderfoodpos\\repositories\\menu\\itemrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|d:\\app\\server\\orderfoodpos\\orderfoodpos\\controllers\\menu\\itemfunction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|solutionrelative:orderfoodpos\\controllers\\menu\\itemfunction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,20 +54,142 @@
       "DocumentGroups": [
         {
           "DockedWidth": 202,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "CategoriesRepository.cs",
+              "DocumentMoniker": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Repositories\\Menu\\CategoriesRepository.cs",
+              "RelativeDocumentMoniker": "OrderFoodPos\\Repositories\\Menu\\CategoriesRepository.cs",
+              "ToolTip": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Repositories\\Menu\\CategoriesRepository.cs",
+              "RelativeToolTip": "OrderFoodPos\\Repositories\\Menu\\CategoriesRepository.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAuwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-20T07:37:23.923Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "StoreAccountRepository.cs",
+              "DocumentMoniker": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Repositories\\Member\\StoreAccountRepository.cs",
+              "RelativeDocumentMoniker": "OrderFoodPos\\Repositories\\Member\\StoreAccountRepository.cs",
+              "ToolTip": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Repositories\\Member\\StoreAccountRepository.cs",
+              "RelativeToolTip": "OrderFoodPos\\Repositories\\Member\\StoreAccountRepository.cs",
+              "ViewState": "AgIAAMwAAAAAAAAAAAAuwBQBAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-20T07:35:51.462Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "StoreAccountService.cs",
+              "DocumentMoniker": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Services\\Member\\StoreAccountService.cs",
+              "RelativeDocumentMoniker": "OrderFoodPos\\Services\\Member\\StoreAccountService.cs",
+              "ToolTip": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Services\\Member\\StoreAccountService.cs",
+              "RelativeToolTip": "OrderFoodPos\\Services\\Member\\StoreAccountService.cs",
+              "ViewState": "AgIAAKoAAAAAAAAAAAAuwLIAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-20T07:27:51.271Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Program.cs",
+              "RelativeDocumentMoniker": "OrderFoodPos\\Program.cs",
+              "ToolTip": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Program.cs",
+              "RelativeToolTip": "OrderFoodPos\\Program.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAwwDUAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-20T07:03:39.743Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ItemRepository.cs",
+              "DocumentMoniker": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Repositories\\Menu\\ItemRepository.cs",
+              "RelativeDocumentMoniker": "OrderFoodPos\\Repositories\\Menu\\ItemRepository.cs",
+              "ToolTip": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Repositories\\Menu\\ItemRepository.cs",
+              "RelativeToolTip": "OrderFoodPos\\Repositories\\Menu\\ItemRepository.cs",
+              "ViewState": "AgIAAEoAAAAAAAAAAAAswFoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-20T06:46:51.805Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "TaxRepository.cs",
+              "DocumentMoniker": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Repositories\\Charges\\TaxRepository.cs",
+              "RelativeDocumentMoniker": "OrderFoodPos\\Repositories\\Charges\\TaxRepository.cs",
+              "ToolTip": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Repositories\\Charges\\TaxRepository.cs",
+              "RelativeToolTip": "OrderFoodPos\\Repositories\\Charges\\TaxRepository.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAuwC4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-20T06:45:07.851Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "StoreAccountFunction.cs",
               "DocumentMoniker": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Controllers\\Member\\StoreAccountFunction.cs",
               "RelativeDocumentMoniker": "OrderFoodPos\\Controllers\\Member\\StoreAccountFunction.cs",
               "ToolTip": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Controllers\\Member\\StoreAccountFunction.cs",
               "RelativeToolTip": "OrderFoodPos\\Controllers\\Member\\StoreAccountFunction.cs",
-              "ViewState": "AgIAAB4BAAAAAAAAAAAUwCcBAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABkBAAAAAAAAAAApwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-01T06:36:30.817Z",
+              "WhenOpened": "2025-05-20T06:37:22.007Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "TaxModel.cs",
+              "DocumentMoniker": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Models\\Charges\\TaxModel.cs",
+              "RelativeDocumentMoniker": "OrderFoodPos\\Models\\Charges\\TaxModel.cs",
+              "ToolTip": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Models\\Charges\\TaxModel.cs",
+              "RelativeToolTip": "OrderFoodPos\\Models\\Charges\\TaxModel.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAQwA8AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-20T06:25:05.538Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TaxService.cs",
+              "DocumentMoniker": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Services\\Charges\\TaxService.cs",
+              "RelativeDocumentMoniker": "OrderFoodPos\\Services\\Charges\\TaxService.cs",
+              "ToolTip": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Services\\Charges\\TaxService.cs",
+              "RelativeToolTip": "OrderFoodPos\\Services\\Charges\\TaxService.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAAwwCQAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-20T06:24:32.388Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TaxFunction.cs",
+              "DocumentMoniker": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Controllers\\Charges\\TaxFunction.cs",
+              "RelativeDocumentMoniker": "OrderFoodPos\\Controllers\\Charges\\TaxFunction.cs",
+              "ToolTip": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Controllers\\Charges\\TaxFunction.cs",
+              "RelativeToolTip": "OrderFoodPos\\Controllers\\Charges\\TaxFunction.cs",
+              "ViewState": "AgIAAGcAAAAAAAAAAAAAAEYAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-20T06:20:15.387Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ItemFunction.cs",
+              "DocumentMoniker": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Controllers\\Menu\\ItemFunction.cs",
+              "RelativeDocumentMoniker": "OrderFoodPos\\Controllers\\Menu\\ItemFunction.cs",
+              "ToolTip": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Controllers\\Menu\\ItemFunction.cs",
+              "RelativeToolTip": "OrderFoodPos\\Controllers\\Menu\\ItemFunction.cs",
+              "ViewState": "AgIAAPsAAAAAAAAAAAAiwA0BAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-20T06:06:29.504Z"
             }
           ]
         }

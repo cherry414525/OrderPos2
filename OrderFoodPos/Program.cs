@@ -13,6 +13,7 @@ using OrderFoodPos.Repositories.Personnel;
 using OrderFoodPos.Repositories.Store;
 using OrderFoodPos.Services.Menu;
 using OrderFoodPos.Repositories.Menu;
+using OrderFoodPos.Services.Store;
 using OrderFoodPos.Repositories.Charges;
 using OrderFoodPos.Services.Charges;
 
@@ -50,6 +51,10 @@ builder.Services.AddTransient<CategoriesService>();
 builder.Services.AddTransient<CategoriesRepository>();
 builder.Services.AddTransient<ItemService>();
 builder.Services.AddTransient<ItemRepository>();
+builder.Services.AddTransient<TasteService>();
+builder.Services.AddTransient<TasteRepository>();
+builder.Services.AddTransient<CustomerService>();
+builder.Services.AddTransient<CustomerRepository>();
 builder.Services.AddTransient<TaxRepository>();
 builder.Services.AddTransient<TaxService>();
 builder.Services.AddTransient<ServiceFeeRepository>();

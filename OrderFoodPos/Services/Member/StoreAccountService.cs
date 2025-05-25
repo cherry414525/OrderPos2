@@ -65,7 +65,6 @@ namespace OrderFoodPos.Services.Member
 					fullName: member.FullName,
 					email: member.Email,
 					isAdmin: member.Admin ?? false, //根據資料庫中的 Role 欄位，不預設
-					storeId: store?.Id ?? 0,
 					storeName: store?.StoreName ?? ""
 				);
 
@@ -98,7 +97,6 @@ namespace OrderFoodPos.Services.Member
 					fullName: emp.Fullname,
 					email: emp.Email,
 					isAdmin: emp.Admin, // ✅ 根據 StoreEmployees 的 Admin 欄位
-					storeId: emp.StoreId,
 					storeName: "" // 可選：你若想查 StoreName 再補上
 				);
 

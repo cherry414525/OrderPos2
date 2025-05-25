@@ -289,7 +289,7 @@ namespace OrderFoodPos.Controllers.Member
 		//取得每日營業時間
 		[Function("GetBusinessHours")]
 		public async Task<HttpResponseData> GetBusinessHours(
-				[HttpTrigger(AuthorizationLevel.Function, "get", Route = "store/{storeId}/businesshours")] HttpRequestData req,
+				[HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "store/{storeId}/businesshours")] HttpRequestData req,
 				int storeId) // 使用 Path 取得 storeId
 		{
 			_logger.LogInformation($"GetBusinessHours 被呼叫，StoreId: {storeId}");
@@ -325,7 +325,7 @@ namespace OrderFoodPos.Controllers.Member
         //更新每日營業時間
         [Function("UpdateBusinessHours")]
         public async Task<HttpResponseData> UpdateBusinessHours(
-    [HttpTrigger(AuthorizationLevel.Function, "put", Route = "store/{storeId}/businesshours")] HttpRequestData req,
+    [HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "store/{storeId}/businesshours")] HttpRequestData req,
     int storeId)
         {
             _logger.LogInformation($"UpdateBusinessHours 被呼叫，StoreId: {storeId}");
@@ -370,7 +370,7 @@ namespace OrderFoodPos.Controllers.Member
 		//取得特殊假日
         [Function("GetHolidays")]
         public async Task<HttpResponseData> GetHolidays(
-    [HttpTrigger(AuthorizationLevel.Function, "get", Route = "store/{storeId}/holiday")] HttpRequestData req,
+    [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "store/{storeId}/holiday")] HttpRequestData req,
     int storeId)
         {
             var response = req.CreateResponse();
@@ -396,7 +396,7 @@ namespace OrderFoodPos.Controllers.Member
 		//更新特殊假日
         [Function("UpdateHolidays")]
         public async Task<HttpResponseData> UpdateHolidays(
-    [HttpTrigger(AuthorizationLevel.Function, "put", Route = "store/{storeId}/holiday")] HttpRequestData req,
+    [HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "store/{storeId}/holiday")] HttpRequestData req,
     int storeId)
         {
             var response = req.CreateResponse();

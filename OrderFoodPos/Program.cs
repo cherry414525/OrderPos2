@@ -63,6 +63,7 @@ builder.Services.AddTransient<ServiceFeeService>();
 builder.Services.AddTransient<LinePayService>();
 
 
+
 // Application Insights isn't enabled by default. See https://aka.ms/AAt8mw4.
 // builder.Services
 //     .AddApplicationInsightsTelemetryWorkerService()

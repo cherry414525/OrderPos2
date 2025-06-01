@@ -16,29 +16,33 @@ namespace OrderFoodPos.Functions
         private readonly ILogger<LinePayFunction> _logger;
         private readonly LinePayService _linePayService;
 
+        // 建構子，注入 Logger 與 LinePayService
         public LinePayFunction(ILogger<LinePayFunction> logger, LinePayService linePayService)
         {
             _logger = logger;
             _linePayService = linePayService;
         }
 
-
-
+        // 處理 LinePay 的付款請求
         [Function("RequestLinePayPayment")]
         public async Task<HttpResponseData> RequestPaymentAsync(
-    [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "linepay/request")] HttpRequestData req)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "linepay/request")] HttpRequestData req)
         {
             var response = req.CreateResponse();
 
             try
             {
+                // 讀取請求的 Body
                 var body = await req.ReadAsStringAsync();
                 _logger.LogInformation("收到 LinePay 請求：{Body}", body);
+
+                // 將 JSON 字串反序列化為物件
                 var linePayRequest = JsonSerializer.Deserialize<LinePayRequest>(body, new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true
                 });
 
+                // 檢查請求是否為空
                 if (linePayRequest == null)
                 {
                     response.StatusCode = HttpStatusCode.BadRequest;
@@ -46,7 +50,7 @@ namespace OrderFoodPos.Functions
                     return response;
                 }
 
-                // ✅ 檢查必填欄位
+                // ✅ 檢查必填欄位是否存在
                 if (string.IsNullOrWhiteSpace(linePayRequest.packageName) ||
                     linePayRequest.redirectUrls == null ||
                     string.IsNullOrWhiteSpace(linePayRequest.redirectUrls.confirmUrl) ||
@@ -57,7 +61,7 @@ namespace OrderFoodPos.Functions
                     return response;
                 }
 
-                // 直接把 linePayRequest 傳給服務，讓它負責序列化和簽名
+                // 呼叫服務進行付款請求
                 var resultJson = await _linePayService.RequestPaymentAsync(linePayRequest);
 
                 response.StatusCode = HttpStatusCode.OK;
@@ -68,6 +72,7 @@ namespace OrderFoodPos.Functions
             }
             catch (Exception ex)
             {
+                // 發生例外時記錄錯誤
                 _logger.LogError(ex, "呼叫 LinePay API 發生錯誤");
                 response.StatusCode = HttpStatusCode.InternalServerError;
                 await response.WriteStringAsync("伺服器錯誤，請稍後再試");
@@ -75,6 +80,7 @@ namespace OrderFoodPos.Functions
             }
         }
 
+        // 確認付款（LINE Pay 在付款完成後會重導向到這裡）
         [Function("ConfirmLinePayPayment")]
         public async Task<HttpResponseData> ConfirmPaymentAsync(
     [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "linepay/confirm")] HttpRequestData req)
@@ -85,16 +91,20 @@ namespace OrderFoodPos.Functions
             {
                 var query = System.Web.HttpUtility.ParseQueryString(req.Url.Query);
                 var transactionId = query["transactionId"];
-                var amount = query["amount"];
+                var orderId = query["orderId"];
 
-                if (string.IsNullOrEmpty(transactionId) || string.IsNullOrEmpty(amount))
+                if (string.IsNullOrEmpty(transactionId) || string.IsNullOrEmpty(orderId))
                 {
                     response.StatusCode = HttpStatusCode.BadRequest;
-                    await response.WriteStringAsync("缺少 transactionId 或 amount");
+                    await response.WriteStringAsync("缺少 transactionId 或 orderId");
                     return response;
                 }
 
-                var result = await _linePayService.ConfirmPaymentAsync(transactionId, int.Parse(amount));
+                // TODO: 這裡請你實作依據 orderId 查出金額
+                //int amount = GetAmountByOrderId(orderId); // 你需要實作這個函式，例如查資料庫
+
+                // 呼叫 LinePay API 確認付款
+                var result = await _linePayService.ConfirmPaymentAsync(transactionId, 200);
 
                 response.StatusCode = HttpStatusCode.OK;
                 await response.WriteStringAsync(result);
@@ -110,9 +120,10 @@ namespace OrderFoodPos.Functions
         }
 
 
+        // 查詢付款交易紀錄
         [Function("QueryLinePayPayment")]
         public async Task<HttpResponseData> QueryPaymentAsync(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "linepay/query")] HttpRequestData req)
+    [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "linepay/query")] HttpRequestData req)
         {
             var response = req.CreateResponse();
 
@@ -122,10 +133,15 @@ namespace OrderFoodPos.Functions
                 var transactionId = query["transactionId"];
                 var orderId = query["orderId"];
 
-                var result = await _linePayService.GetPaymentDetailsAsync(transactionId, orderId);
+                var transactionIds = string.IsNullOrEmpty(transactionId) ? null : new[] { transactionId };
+                var orderIds = string.IsNullOrEmpty(orderId) ? null : new[] { orderId };
+
+                var result = await _linePayService.GetPaymentDetailsAsync(transactionIds, orderIds);
 
                 response.StatusCode = HttpStatusCode.OK;
+                response.Headers.Add("Content-Type", "application/json");
                 await response.WriteStringAsync(result);
+
                 return response;
             }
             catch (Exception ex)
@@ -137,6 +153,8 @@ namespace OrderFoodPos.Functions
             }
         }
 
+
+        // 處理退款請求
         [Function("RefundLinePayPayment")]
         public async Task<HttpResponseData> RefundPaymentAsync(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "linepay/refund")] HttpRequestData req)
@@ -145,12 +163,14 @@ namespace OrderFoodPos.Functions
 
             try
             {
+                // 讀取退款請求的內容
                 var body = await req.ReadAsStringAsync();
                 var refundRequest = JsonSerializer.Deserialize<LinePayRefundRequest>(body, new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true
                 });
 
+                // 檢查必要欄位
                 if (refundRequest == null || string.IsNullOrEmpty(refundRequest.transactionId))
                 {
                     response.StatusCode = HttpStatusCode.BadRequest;
@@ -158,6 +178,7 @@ namespace OrderFoodPos.Functions
                     return response;
                 }
 
+                // 呼叫服務執行退款
                 var result = await _linePayService.RefundPaymentAsync(refundRequest.transactionId, refundRequest.refundAmount);
 
                 response.StatusCode = HttpStatusCode.OK;
@@ -172,9 +193,6 @@ namespace OrderFoodPos.Functions
                 return response;
             }
         }
-
-
-
-
     }
 }
+

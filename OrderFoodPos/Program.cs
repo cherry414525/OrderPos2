@@ -17,6 +17,8 @@ using OrderFoodPos.Services.Store;
 using OrderFoodPos.Repositories.Charges;
 using OrderFoodPos.Services.Charges;
 using OrderFoodPos.Controllers;
+using OrderFoodPos.Services.Orders;
+using OrderFoodPos.Repositories.Orders;
 
 var builder = FunctionsApplication.CreateBuilder(args);
 
@@ -61,7 +63,8 @@ builder.Services.AddTransient<TaxService>();
 builder.Services.AddTransient<ServiceFeeRepository>();
 builder.Services.AddTransient<ServiceFeeService>();
 builder.Services.AddTransient<LinePayService>();
-
+builder.Services.AddTransient<OrderService>();
+builder.Services.AddTransient<OrderRepository>();
 
 
 // Application Insights isn't enabled by default. See https://aka.ms/AAt8mw4.

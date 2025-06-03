@@ -7,7 +7,10 @@ using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 using OrderFoodPos.Models;
+using OrderFoodPos.Models.Orders;
+using OrderFoodPos.Repositories.Orders;
 using OrderFoodPos.Services;
+using OrderFoodPos.Services.Orders;
 
 namespace OrderFoodPos.Functions
 {
@@ -15,12 +18,14 @@ namespace OrderFoodPos.Functions
     {
         private readonly ILogger<LinePayFunction> _logger;
         private readonly LinePayService _linePayService;
+        private readonly OrderService _orderService;
 
         // 建構子，注入 Logger 與 LinePayService
-        public LinePayFunction(ILogger<LinePayFunction> logger, LinePayService linePayService)
+        public LinePayFunction(ILogger<LinePayFunction> logger, LinePayService linePayService, OrderService orderService)
         {
             _logger = logger;
             _linePayService = linePayService;
+            _orderService = orderService;
         }
 
         // 處理 LinePay 的付款請求
@@ -41,6 +46,9 @@ namespace OrderFoodPos.Functions
                 {
                     PropertyNameCaseInsensitive = true
                 });
+
+                // 無論有沒有傳入，都產生新的 orderId（覆蓋）
+                linePayRequest.orderId = "order" + DateTime.Now.ToString("yyyyMMdd") + Guid.NewGuid().ToString("N").Substring(0, 8);
 
                 // 檢查請求是否為空
                 if (linePayRequest == null)
@@ -63,6 +71,9 @@ namespace OrderFoodPos.Functions
 
                 // 呼叫服務進行付款請求
                 var resultJson = await _linePayService.RequestPaymentAsync(linePayRequest);
+
+                // 這裡可以先檢查 LinePay API 回傳是否成功 (視你的 _linePayService 實作)
+                await _orderService.CreateOrderAsync(linePayRequest);
 
                 response.StatusCode = HttpStatusCode.OK;
                 response.Headers.Add("Content-Type", "application/json");
@@ -100,11 +111,27 @@ namespace OrderFoodPos.Functions
                     return response;
                 }
 
-                // TODO: 這裡請你實作依據 orderId 查出金額
-                //int amount = GetAmountByOrderId(orderId); // 你需要實作這個函式，例如查資料庫
+                
+                // 根據 orderId 查詢訂單資訊(查金額)
+                var order = await _orderService.GetOrderAsync(orderId);
+                if (order == null)
+                {
+                    response.StatusCode = HttpStatusCode.NotFound;
+                    await response.WriteStringAsync("找不到訂單");
+                    return response;
+                }
+
+                int amount = order.TotalAmount;
+
 
                 // 呼叫 LinePay API 確認付款
                 var result = await _linePayService.ConfirmPaymentAsync(transactionId, 200);
+
+                // 更新訂單狀態
+                await _orderService.UpdateOrderStatusAsync(orderId, "Paid");
+                // 寫入付款紀錄
+                await _orderService.AddPaymentAsync(orderId, transactionId, order.TotalAmount);
+
 
                 response.StatusCode = HttpStatusCode.OK;
                 await response.WriteStringAsync(result);

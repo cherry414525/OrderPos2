@@ -91,6 +91,41 @@ namespace OrderFoodPos.Functions
             }
         }
 
+        //取消付款
+        [Function("CancelLinePayPayment")]
+        public async Task<HttpResponseData> CancelPaymentAsync(
+    [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "linepay/cancel")] HttpRequestData req)
+        {
+            var response = req.CreateResponse();
+
+            try
+            {
+                var query = System.Web.HttpUtility.ParseQueryString(req.Url.Query);
+                var orderId = query["orderId"];
+
+                if (string.IsNullOrEmpty(orderId))
+                {
+                    response.StatusCode = HttpStatusCode.BadRequest;
+                    await response.WriteStringAsync("缺少 orderId");
+                    return response;
+                }
+
+                // 更新訂單狀態為取消
+                await _orderService.UpdateOrderStatusAsync(orderId, "Canceled");
+
+                response.StatusCode = HttpStatusCode.OK;
+                await response.WriteStringAsync($"已取消訂單 {orderId}");
+                return response;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "取消付款時發生錯誤");
+                response.StatusCode = HttpStatusCode.InternalServerError;
+                await response.WriteStringAsync("伺服器錯誤");
+                return response;
+            }
+        }
+
         // 確認付款（LINE Pay 在付款完成後會重導向到這裡）
         [Function("ConfirmLinePayPayment")]
         public async Task<HttpResponseData> ConfirmPaymentAsync(
@@ -125,7 +160,7 @@ namespace OrderFoodPos.Functions
 
 
                 // 呼叫 LinePay API 確認付款
-                var result = await _linePayService.ConfirmPaymentAsync(transactionId, 200);
+                var result = await _linePayService.ConfirmPaymentAsync(transactionId, order.TotalAmount);
 
                 // 更新訂單狀態
                 await _orderService.UpdateOrderStatusAsync(orderId, "Paid");

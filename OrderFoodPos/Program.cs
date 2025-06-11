@@ -24,7 +24,7 @@ var builder = FunctionsApplication.CreateBuilder(args);
 
 builder.ConfigureFunctionsWebApplication();
 
-
+builder.Services.AddHttpClient();
 
 //  ª`¤J SqlConnectionFactory
 builder.Services.AddSingleton<SqlConnectionFactory>();
@@ -65,6 +65,7 @@ builder.Services.AddTransient<ServiceFeeService>();
 builder.Services.AddTransient<LinePayService>();
 builder.Services.AddTransient<OrderService>();
 builder.Services.AddTransient<OrderRepository>();
+builder.Services.AddTransient<EcpayInvoiceService>();
 
 
 // Application Insights isn't enabled by default. See https://aka.ms/AAt8mw4.

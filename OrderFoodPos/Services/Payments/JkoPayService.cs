@@ -1,53 +1,97 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using OrderFoodPos.Models.Payments;
 
-namespace OrderFoodPos.Services.Payments
+namespace OrderFoodPos.Services
 {
     public class JkoPayService
     {
         private readonly HttpClient _httpClient;
-        private const string ApiBaseUrl = "https://api.jkopay.com/v2"; // 假設 API 位置
-        private const string MerchantId = "your_merchant_id";
-        private const string ApiKey = "your_api_key";
 
-        public JkoPayService()
+        private const string MerchantID = "99999999";
+        private const string MerchantKey = "2AA6B9B6F9C64247ABB2677B6AF2C896";
+        private const string SystemName = "OrderFoodPos"; // 改為你的系統方名稱
+
+        private static string PaymentUrl => $"https://uat-pos.jkopay.app/Test/Payment";
+       
+
+        public JkoPayService(HttpClient httpClient)
         {
-            _httpClient = new HttpClient();
+            _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
         }
 
         public async Task<string> RequestPaymentAsync(JkoPayRequest request)
         {
-            string apiPath = "/orders"; // 假設的 API 路徑
-
-            var jsonBody = JsonConvert.SerializeObject(request);
-            var signature = GenerateSignature(jsonBody);
-
-            var httpRequest = new HttpRequestMessage(HttpMethod.Post, ApiBaseUrl + apiPath);
-            httpRequest.Content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
-            httpRequest.Headers.Add("X-Merchant-Id", MerchantId);
-            httpRequest.Headers.Add("X-Signature", signature);
-
-            var response = await _httpClient.SendAsync(httpRequest);
-            response.EnsureSuccessStatusCode();
-
-            return await response.Content.ReadAsStringAsync();
+            PrepareRequest(request);
+            return await PostAsync(PaymentUrl, request);
         }
 
-        private string GenerateSignature(string body)
+        
+        private void PrepareRequest(JkoPayRequest request)
         {
-            // 根據街口支付規則產生簽章
-            using (var hmac = new HMACSHA256(Encoding.UTF8.GetBytes(ApiKey)))
+            request.MerchantID = MerchantID;
+            request.SendTime = DateTime.Now.ToString("yyyyMMddHHmmss");
+            request.PosTradeTime = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+
+            // 保證所有欄位都填入空字串
+            request.Extra1 ??= "";
+            request.Extra2 ??= "";
+            request.Extra3 ??= "";
+            request.GatewayTradeNo ??= "";
+            request.Remark ??= "";
+
+            request.Sign = GenerateSignature(request);
+        }
+
+        private async Task<string> PostAsync(string url, JkoPayRequest request)
+        {
+            var jsonBody = JsonConvert.SerializeObject(request);
+            var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.PostAsync(url, content);
+            var result = await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
             {
-                var hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(body));
-                return Convert.ToBase64String(hash);
+                throw new Exception($"[街口API失敗] {response.StatusCode}: {result}");
             }
+
+            return result;
+        }
+
+        private string GenerateSignature(JkoPayRequest request)
+        {
+            // 依照 API 文件順序產生簽章
+            var sorted = new SortedDictionary<string, object>
+            {
+                { "CardToken", request.CardToken ?? "" },
+                { "Extra1", request.Extra1 },
+                { "Extra2", request.Extra2 },
+                { "Extra3", request.Extra3 },
+                { "GatewayTradeNo", request.GatewayTradeNo },
+                { "MerchantID", request.MerchantID },
+                { "MerchantTradeNo", request.MerchantTradeNo },
+                { "PosID", request.PosID },
+                { "PosTradeTime", request.PosTradeTime },
+                { "Remark", request.Remark },
+                { "SendTime", request.SendTime },
+                { "StoreID", request.StoreID },
+                { "StoreName", request.StoreName },
+                { "TradeAmount", request.TradeAmount },
+                { "UnRedeem", request.UnRedeem }
+            };
+
+            string json = JsonConvert.SerializeObject(sorted, Formatting.None);
+            string toHash = json + MerchantKey;
+
+            using var sha256 = SHA256.Create();
+            var hashBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(toHash));
+            return BitConverter.ToString(hashBytes).Replace("-", "").ToLower(); // 回傳小寫
         }
     }
-
 }

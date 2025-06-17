@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Azure.Functions.Worker;
@@ -7,81 +6,67 @@ using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 using OrderFoodPos.Models.Payments;
 using OrderFoodPos.Services;
-using OrderFoodPos.Services.Orders;
-using OrderFoodPos.Services.Payments;
 
 namespace OrderFoodPos.Functions
 {
-    public class JkoPayFunction
+    public class JkoPayController
     {
-        private readonly ILogger<JkoPayFunction> _logger;
+        private readonly ILogger<JkoPayController> _logger;
         private readonly JkoPayService _jkoPayService;
-        private readonly OrderService _orderService;
 
-        public JkoPayFunction(ILogger<JkoPayFunction> logger, JkoPayService jkoPayService, OrderService orderService)
+        public JkoPayController(ILogger<JkoPayController> logger, JkoPayService jkoPayService)
         {
             _logger = logger;
             _jkoPayService = jkoPayService;
-            _orderService = orderService;
         }
 
-        // 處理街口付款請求
         [Function("RequestJkoPayPayment")]
         public async Task<HttpResponseData> RequestPaymentAsync(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "jkopay/request")] HttpRequestData req)
+            [HttpTrigger(AuthorizationLevel.Function, "post", Route = "jkopay/payment")] HttpRequestData req)
         {
             var response = req.CreateResponse();
 
             try
             {
-                // 讀取請求的 JSON 字串
-                var body = await req.ReadAsStringAsync();
-                _logger.LogInformation("收到 JKO Pay 請求：{Body}", body);
+                string body = await req.ReadAsStringAsync();
+                _logger.LogInformation("接收到街口付款請求：{Body}", body);
 
-                var jkoRequest = JsonSerializer.Deserialize<JkoPayRequest>(body, new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                });
+                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                var request = JsonSerializer.Deserialize<JkoPayRequest>(body, options);
 
-                // 檢查請求是否為空
-                if (jkoRequest == null)
+                if (request == null)
                 {
                     response.StatusCode = HttpStatusCode.BadRequest;
-                    await response.WriteStringAsync("請求內容無效");
+                    await response.WriteStringAsync("無效的請求資料");
                     return response;
                 }
 
-                // 檢查必填欄位
-                if (jkoRequest.amount <= 0 ||
-                    string.IsNullOrWhiteSpace(jkoRequest.notifyUrl) ||
-                    string.IsNullOrWhiteSpace(jkoRequest.returnUrl) ||
-                    string.IsNullOrWhiteSpace(jkoRequest.description))
+                // 檢查必填欄位（文件中所有必要欄位）
+                if (string.IsNullOrWhiteSpace(request.CardToken) ||
+                    string.IsNullOrWhiteSpace(request.MerchantTradeNo) ||
+                    string.IsNullOrWhiteSpace(request.PosID) ||
+                    string.IsNullOrWhiteSpace(request.StoreID) ||
+                    string.IsNullOrWhiteSpace(request.StoreName) ||
+                    request.TradeAmount <= 0)
                 {
                     response.StatusCode = HttpStatusCode.BadRequest;
-                    await response.WriteStringAsync("缺少必要欄位：Amount, NotifyUrl, ReturnUrl 或 Description");
+                    await response.WriteStringAsync("缺少必要欄位");
                     return response;
                 }
 
-                // 產生訂單編號
-                jkoRequest.orderId = "jko" + DateTime.Now.ToString("yyyyMMdd") + Guid.NewGuid().ToString("N").Substring(0, 8);
-
-                // 呼叫服務進行付款請求
-                var resultJson = await _jkoPayService.RequestPaymentAsync(jkoRequest);
-
-                // 建立訂單紀錄（視實作而定）
-                //await _orderService.CreateOrderAsync(jkoRequest); // 確保你有這個方法重載支援 JkoPayRequest
+                var resultJson = await _jkoPayService.RequestPaymentAsync(request);
 
                 response.StatusCode = HttpStatusCode.OK;
-                response.Headers.Add("Content-Type", "application/json");
+                response.Headers.Add("Content-Type", "application/json; charset=utf-8");
                 await response.WriteStringAsync(resultJson);
 
                 return response;
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
-                _logger.LogError(ex, "呼叫街口 API 發生錯誤");
+                _logger.LogError(ex, "街口付款發生例外錯誤");
                 response.StatusCode = HttpStatusCode.InternalServerError;
-                await response.WriteStringAsync("伺服器錯誤，請稍後再試");
+                await response.WriteStringAsync("伺服器錯誤");
                 return response;
             }
         }

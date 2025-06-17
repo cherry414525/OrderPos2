@@ -8,13 +8,23 @@ namespace OrderFoodPos.Models.Payments
 {
     public class JkoPayRequest
     {
-        public string orderId { get; set; }
-        public int amount { get; set; }
-        public string currency { get; set; } = "TWD";
-        public string notifyUrl { get; set; }
-        public string returnUrl { get; set; }
-        public string description { get; set; }
-        // 其他街口要求的欄位
+        public string MerchantID { get; set; }
+        public string StoreID { get; set; }
+        public string StoreName { get; set; }
+        public string GatewayTradeNo { get; set; } = "";
+        public string MerchantTradeNo { get; set; }
+        public string PosID { get; set; }
+        public string PosTradeTime { get; set; } // yyyy/MM/dd HH:mm:ss
+        public string CardToken { get; set; }
+        public int TradeAmount { get; set; }
+        public int UnRedeem { get; set; }
+        public string Remark { get; set; } = "";
+        public string Extra1 { get; set; } = "";
+        public string Extra2 { get; set; } = "";
+        public string Extra3 { get; set; } = "";
+        public string SendTime { get; set; } // yyyyMMddHHmmss
+        public string Sign { get; set; } // 自動產生
     }
+
 
 }

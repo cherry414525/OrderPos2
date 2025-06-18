@@ -46,4 +46,36 @@ namespace OrderFoodPos.Models.Payments
         public string Sign { get; set; }
     }
 
+    public class JkoPayRefundRequest
+    {
+        public string MerchantID { get; set; }
+        public string StoreID { get; set; }
+        public string StoreName { get; set; }
+        public string GatewayTradeNo { get; set; }
+        public string MerchantTradeNo { get; set; }
+        public string PosID { get; set; }
+        public string PosTradeTime { get; set; }
+        public string TradeNo { get; set; }
+        public int TradeAmount { get; set; }
+        public string Remark { get; set; }
+        public string Extra1 { get; set; }
+        public string Extra2 { get; set; }
+        public string Extra3 { get; set; }
+        public string SendTime { get; set; }
+        public string Sign { get; set; }
+    }
+
+    public class JkoPayInquiryRequest
+    {
+        public string InquiryType { get; set; }
+        public string MerchantID { get; set; }
+        public string StoreID { get; set; }
+        public string GatewayTradeNo { get; set; }
+        public string MerchantTradeNo { get; set; }
+        public string PosID { get; set; }
+        public string PosTradeTime { get; set; }
+        public string SendTime { get; set; }
+        public string Sign { get; set; }
+    }
+
 }

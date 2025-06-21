@@ -78,4 +78,11 @@ namespace OrderFoodPos.Models.Payments
         public string Sign { get; set; }
     }
 
+    public class StoreJkoPay
+    {
+        public string StoreID { get; set; }
+        public string MerchantID { get; set; }
+        public string MerchantKey { get; set; }
+        public string SystemName { get; set; }
+    }
 }

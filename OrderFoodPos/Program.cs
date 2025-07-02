@@ -69,6 +69,7 @@ builder.Services.AddTransient<OrderRepository>();
 builder.Services.AddTransient<EcpayInvoiceService>();
 builder.Services.AddTransient<JkoPayService>();
 builder.Services.AddTransient<StoreJkoPayRepository>();
+builder.Services.AddTransient<StoreLinePayRepository>();
 
 // Application Insights isn't enabled by default. See https://aka.ms/AAt8mw4.
 // builder.Services

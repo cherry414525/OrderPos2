@@ -6,22 +6,26 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using OrderFoodPos.Repositories.Payments;
+using OrderFoodPos.Models.Payments;
 
 namespace OrderFoodPos.Services
 {
     public class LinePayService
     {
         private readonly HttpClient _httpClient;
+        private readonly StoreLinePayRepository _storeLinePayRepo;
 
         // LINE Pay 沙盒 API 的基礎網址
         private const string ApiBaseUrl = "https://sandbox-api-pay.line.me";
 
         // 請替換為你自己的 Channel ID 和 Secret（可從 LINE Pay 商家後台取得）
-        private const string ChannelId = "2007487168";
-        private const string ChannelSecret = "3bc0177408f34129d91e9c08028ff1ac";
+        //private const string ChannelId = "2007487168";
+        //private const string ChannelSecret = "3bc0177408f34129d91e9c08028ff1ac";
 
-        public LinePayService()
+        public LinePayService(StoreLinePayRepository storeLinePayRepo)
         {
+            _storeLinePayRepo = storeLinePayRepo;
             _httpClient = new HttpClient();
 
         }
@@ -82,6 +86,14 @@ namespace OrderFoodPos.Services
       
         private async Task<string> SendRequestAsync(string method, string apiPath, object requestData, string queryString)
         {
+            var storeConfig = await _storeLinePayRepo.GetStoreLinePayByStoreIdAsync("1");
+            if (storeConfig == null)
+                throw new Exception($"找不到 StoreID 的 LINE Pay 設定資料");
+
+            string ChannelId = storeConfig.ChannelId;
+            string ChannelSecret = storeConfig.ChannelSecret;
+
+
             string nonce = Guid.NewGuid().ToString(); // LINE 要求的亂數值（防止重播攻擊）
 
             string jsonBody = method == "POST" && requestData != null
@@ -108,7 +120,7 @@ namespace OrderFoodPos.Services
                 messageToSign = ChannelSecret + apiPath + jsonBody + nonce;
             }
 
-            string signature = GenerateSignature(messageToSign);
+            string signature = GenerateSignature(messageToSign,ChannelSecret);
             string requestUrl = ApiBaseUrl + fullApiPath;
             var requestMessage = new HttpRequestMessage(new HttpMethod(method), requestUrl);
 
@@ -157,7 +169,7 @@ namespace OrderFoodPos.Services
         /// </summary>
         /// <param name="message">欲加密的原始訊息（由 API 路徑、內容、nonce 等組成）</param>
         /// <returns>經過加密並轉為 Base64 的簽章字串</returns>
-        private string GenerateSignature(string message)
+        private string GenerateSignature(string message, string ChannelSecret)
         {
             if (string.IsNullOrEmpty(ChannelSecret))
                 throw new InvalidOperationException("ChannelSecret 不可為空");

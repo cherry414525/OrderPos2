@@ -49,4 +49,13 @@ namespace OrderFoodPos.Models
         public string transactionId { get; set; }
         public string orderId { get; set; }
     }
-}
+
+    public class StoreLinePay
+    {
+        public string StoreID { get; set; }
+        public string ChannelId { get; set; }
+        public string ChannelSecret { get; set; }
+    }
+
+
+    }

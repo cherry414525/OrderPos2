@@ -4,31 +4,41 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using OrderFoodPos.Repositories.Payments;
 
 public class EcpayInvoiceService
 {
     private readonly HttpClient _client;
-    private const string MerchantID = "2000132";
-    private const string HashKey = "ejCk326UnaZWKisg";
-    private const string HashIV = "q9jcZX8Ib9LM8wYk";
+    private readonly StoreEcpayRepository _storeEcpayRepo;
+    //private const string MerchantID = "2000132";
+    //private const string HashKey = "ejCk326UnaZWKisg";
+    //private const string HashIV = "q9jcZX8Ib9LM8wYk";
     private const string ApiUrl = "https://einvoice-stage.ecpay.com.tw/B2CInvoice/Issue";
 
-    public EcpayInvoiceService(HttpClient client)
+    public EcpayInvoiceService(HttpClient client, StoreEcpayRepository storeEcpayRepo)
     {
+        _storeEcpayRepo = storeEcpayRepo;
         _client = client;
     }
 
     public async Task<string> IssueInvoiceAsync(InvoiceRequest invoiceData)
     {
+
+        // 取得金鑰
+        var credentials = await _storeEcpayRepo.GetStoreEcpayByStoreIdAsync("1");
+        if (credentials == null)
+            throw new Exception($"查無 StoreID 的綠界設定");
+
+
         var timestamp = DateTimeOffset.UtcNow.ToOffset(TimeSpan.FromHours(8)).ToUnixTimeSeconds();
 
         var dataJson = JsonSerializer.Serialize(invoiceData);
         var urlEncodedData = Uri.EscapeDataString(dataJson); // ✅ URL encode
-        var encryptedData = AESEncrypt(urlEncodedData, HashKey, HashIV); // ✅ Base64 加密結果
+        var encryptedData = AESEncrypt(urlEncodedData, credentials.HashKey, credentials.HashIV); // ✅ Base64 加密結果
 
         var requestObj = new
         {
-            MerchantID,
+            MerchantID = credentials.MerchantID,
             RqHeader = new { Timestamp = timestamp },
             Data = encryptedData
         };

@@ -38,3 +38,11 @@ public class InvoiceItem
     public int ItemAmount { get; set; }
     public string ItemRemark { get; set; }
 }
+
+public class StoreEcpay
+{
+    public string StoreID { get; set; }
+    public string MerchantID { get; set; }
+    public string HashKey { get; set; }
+    public string HashIV { get; set; }
+}

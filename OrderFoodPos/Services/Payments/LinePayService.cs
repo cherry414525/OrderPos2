@@ -80,10 +80,16 @@ namespace OrderFoodPos.Services
             return await SendRequestAsync("POST", apiPath, requestData, null);
         }
 
+        //LinePay線下付款
+        public async Task<string> RequestOfflineOneTimeKeyPaymentAsync(object requestData)
+        {
+            string apiPath = "/v2/payments/oneTimeKeys/pay";
+            return await SendOfflineRequestAsync("POST", apiPath, requestData);
+        }
 
 
-        /// 發送 LINE Pay API 請求，並根據 HTTP 方法產生對應的簽章與標頭
-      
+
+        /// 發送 LINE Pay API 請求，並根據 HTTP 方法產生對應的簽章與標頭(線上付款)
         private async Task<string> SendRequestAsync(string method, string apiPath, object requestData, string queryString)
         {
             var storeConfig = await _storeLinePayRepo.GetStoreLinePayByStoreIdAsync("1");
@@ -120,7 +126,7 @@ namespace OrderFoodPos.Services
                 messageToSign = ChannelSecret + apiPath + jsonBody + nonce;
             }
 
-            string signature = GenerateSignature(messageToSign,ChannelSecret);
+            string signature = GenerateSignature(messageToSign, ChannelSecret);
             string requestUrl = ApiBaseUrl + fullApiPath;
             var requestMessage = new HttpRequestMessage(new HttpMethod(method), requestUrl);
 
@@ -160,6 +166,60 @@ namespace OrderFoodPos.Services
         }
 
 
+        /// 發送 LINE Pay API 請求，並根據 HTTP 方法產生對應的簽章與標頭(線下付款)
+        private async Task<string> SendOfflineRequestAsync(string method, string apiPath, object requestData)
+        {
+            // 直接定義必要常數（可自行修改為實際值）
+            const string ChannelId = "2007487168";
+            const string ChannelSecret = "3bc0177408f34129d91e9c08028ff1ac";
+            const string DeviceProfileId = "your_device_profile_id"; // ⬅️ 請替換成實際 Device Profile ID
+            const string DeviceType = "POS";
+
+            string requestUrl = ApiBaseUrl + apiPath;
+            var requestMessage = new HttpRequestMessage(HttpMethod.Post, requestUrl);
+
+            // 設定 v2 API 所需的 Headers
+            requestMessage.Headers.Add("X-LINE-ChannelId", ChannelId);
+            requestMessage.Headers.Add("X-LINE-ChannelSecret", ChannelSecret);
+            requestMessage.Headers.Add("X-LINE-MerchantDeviceProfileId", DeviceProfileId);
+            requestMessage.Headers.Add("X-LINE-MerchantDeviceType", DeviceType);
+
+            string jsonBody = JsonConvert.SerializeObject(requestData);
+            requestMessage.Content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+
+            // Debug Log
+            Console.WriteLine("----- LINE Pay v2 API Request -----");
+            Console.WriteLine($"URL: {requestUrl}");
+            Console.WriteLine($"Method: {method}");
+            Console.WriteLine($"Headers:");
+            Console.WriteLine($"  X-LINE-ChannelId: {ChannelId}");
+            Console.WriteLine($"  X-LINE-ChannelSecret: {ChannelSecret}");
+            Console.WriteLine($"  X-LINE-MerchantDeviceProfileId: {DeviceProfileId}");
+            Console.WriteLine($"  X-LINE-MerchantDeviceType: {DeviceType}");
+            Console.WriteLine($"Body: {jsonBody}");
+            Console.WriteLine("-----------------------------------");
+
+            try
+            {
+                using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(30));
+                var response = await _httpClient.SendAsync(requestMessage, cts.Token);
+                var responseContent = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new HttpRequestException($"LINE Pay API 錯誤: {response.StatusCode}, 錯誤內容: {responseContent}");
+                }
+
+                return responseContent;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("線下付款請求失敗: " + ex.Message, ex);
+            }
+        }
+
+
+
 
         /// <summary>
         /// 使用 HMAC-SHA256 對輸入字串進行加密並轉成 Base64 簽章
@@ -183,6 +243,8 @@ namespace OrderFoodPos.Services
                 return Convert.ToBase64String(hash);
             }
         }
+
+
 
     }
 }

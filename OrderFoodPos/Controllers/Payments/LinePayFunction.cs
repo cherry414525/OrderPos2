@@ -255,6 +255,67 @@ namespace OrderFoodPos.Functions
                 return response;
             }
         }
+
+
+        //linePay線下付款
+        [Function("LinePayOfflinePayWithMyCode")]
+        public async Task<HttpResponseData> PayWithOneTimeKeyAsync(
+    [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "linepay/offline/pay")] HttpRequestData req)
+        {
+            var response = req.CreateResponse();
+
+            try
+            {
+                var body = await req.ReadAsStringAsync();
+                _logger.LogInformation("接收到線下付款請求：{Body}", body);
+
+                var payload = JsonSerializer.Deserialize<LinePayOfflinePayRequest>(body, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+
+                if (payload == null || string.IsNullOrWhiteSpace(payload.OneTimeKey))
+                {
+                    response.StatusCode = HttpStatusCode.BadRequest;
+                    await response.WriteStringAsync("請求資料無效，需包含 oneTimeKey");
+                    return response;
+                }
+
+                // 自動產生訂單編號
+                var orderId = "offline_" + DateTime.Now.ToString("yyyyMMddHHmmss") + Guid.NewGuid().ToString("N")[..6];
+
+                // 組裝請求資料
+                var requestData = new
+                {
+                    amount = payload.Amount,
+                    currency = "TWD",
+                    orderId = orderId,
+                    productName = payload.ProductName ?? "LINE Pay 商品",
+                    oneTimeKey = payload.OneTimeKey,
+                    extras = new
+                    {
+                        branchName = payload.BranchName ?? "DefaultBranch",
+                        branchId = payload.BranchId ?? "branch1"
+                    }
+                };
+
+                // 呼叫 LINE Pay /v2/payments/oneTimeKeys/pay
+                var resultJson = await _linePayService.RequestOfflineOneTimeKeyPaymentAsync(requestData);
+
+                response.StatusCode = HttpStatusCode.OK;
+                response.Headers.Add("Content-Type", "application/json");
+                await response.WriteStringAsync(resultJson);
+                return response;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "線下付款失敗");
+                response.StatusCode = HttpStatusCode.InternalServerError;
+                await response.WriteStringAsync("伺服器錯誤");
+                return response;
+            }
+        }
+
     }
 }
 

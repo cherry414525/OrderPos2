@@ -3,24 +3,16 @@
   "WorkspaceRootPath": "D:\\App\\server\\OrderFoodPos\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|d:\\app\\server\\orderfoodpos\\orderfoodpos\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|solutionrelative:orderfoodpos\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|d:\\app\\server\\orderfoodpos\\orderfoodpos\\services\\payments\\ecpayinvoiceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|solutionrelative:orderfoodpos\\services\\payments\\ecpayinvoiceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|d:\\app\\server\\orderfoodpos\\orderfoodpos\\services\\payments\\linepayservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|solutionrelative:orderfoodpos\\services\\payments\\linepayservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|d:\\app\\server\\orderfoodpos\\orderfoodpos\\models\\payments\\ecpayinvoicemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|solutionrelative:orderfoodpos\\models\\payments\\ecpayinvoicemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|d:\\app\\server\\orderfoodpos\\orderfoodpos\\models\\payments\\linepaymodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|solutionrelative:orderfoodpos\\models\\payments\\linepaymodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|d:\\app\\server\\orderfoodpos\\orderfoodpos\\repositories\\payments\\stroeecpayrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|solutionrelative:orderfoodpos\\repositories\\payments\\stroeecpayrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|d:\\app\\server\\orderfoodpos\\orderfoodpos\\controllers\\payments\\linepayfunction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{72F75854-70EE-4A9A-B7C7-8D51E2920E09}|OrderFoodPos\\OrderFoodPos.csproj|solutionrelative:orderfoodpos\\controllers\\payments\\linepayfunction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,71 +22,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Program.cs",
-              "RelativeDocumentMoniker": "OrderFoodPos\\Program.cs",
-              "ToolTip": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Program.cs",
-              "RelativeToolTip": "OrderFoodPos\\Program.cs",
-              "ViewState": "AgIAAEEAAAAAAAAAAAASwEgAAAA2AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-02T09:20:37.22Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "LinePayService.cs",
-              "DocumentMoniker": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Services\\Payments\\LinePayService.cs",
-              "RelativeDocumentMoniker": "OrderFoodPos\\Services\\Payments\\LinePayService.cs",
-              "ToolTip": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Services\\Payments\\LinePayService.cs",
-              "RelativeToolTip": "OrderFoodPos\\Services\\Payments\\LinePayService.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAA4wBUAAAAyAAAAAAAAAA==",
+              "Title": "LinePayFunction.cs",
+              "DocumentMoniker": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Controllers\\Payments\\LinePayFunction.cs",
+              "RelativeDocumentMoniker": "OrderFoodPos\\Controllers\\Payments\\LinePayFunction.cs",
+              "ToolTip": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Controllers\\Payments\\LinePayFunction.cs",
+              "RelativeToolTip": "OrderFoodPos\\Controllers\\Payments\\LinePayFunction.cs",
+              "ViewState": "AgIAADABAAAAAAAAAAASwD0BAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-02T09:17:12.602Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "StroeEcpayRepository.cs",
-              "DocumentMoniker": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Repositories\\Payments\\StroeEcpayRepository.cs",
-              "RelativeDocumentMoniker": "OrderFoodPos\\Repositories\\Payments\\StroeEcpayRepository.cs",
-              "ToolTip": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Repositories\\Payments\\StroeEcpayRepository.cs",
-              "RelativeToolTip": "OrderFoodPos\\Repositories\\Payments\\StroeEcpayRepository.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAA/wBcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-02T09:14:17.678Z",
+              "WhenOpened": "2025-07-12T09:16:45.28Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "EcpayInvoiceService.cs",
-              "DocumentMoniker": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Services\\Payments\\EcpayInvoiceService.cs",
-              "RelativeDocumentMoniker": "OrderFoodPos\\Services\\Payments\\EcpayInvoiceService.cs",
-              "ToolTip": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Services\\Payments\\EcpayInvoiceService.cs",
-              "RelativeToolTip": "OrderFoodPos\\Services\\Payments\\EcpayInvoiceService.cs",
-              "ViewState": "AgIAAB8AAAAAAAAAAAASwCkAAAA1AAAAAAAAAA==",
+              "Title": "LinePayModel.cs",
+              "DocumentMoniker": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Models\\Payments\\LinePayModel.cs",
+              "RelativeDocumentMoniker": "OrderFoodPos\\Models\\Payments\\LinePayModel.cs",
+              "ToolTip": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Models\\Payments\\LinePayModel.cs",
+              "RelativeToolTip": "OrderFoodPos\\Models\\Payments\\LinePayModel.cs",
+              "ViewState": "AgIAADsAAAAAAAAAAAAIwDwAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-02T09:05:22.813Z",
+              "WhenOpened": "2025-07-12T09:16:40.497Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "EcpayInvoiceModel.cs",
-              "DocumentMoniker": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Models\\Payments\\EcpayInvoiceModel.cs",
-              "RelativeDocumentMoniker": "OrderFoodPos\\Models\\Payments\\EcpayInvoiceModel.cs",
-              "ToolTip": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Models\\Payments\\EcpayInvoiceModel.cs",
-              "RelativeToolTip": "OrderFoodPos\\Models\\Payments\\EcpayInvoiceModel.cs",
-              "ViewState": "AgIAACYAAAAAAAAAAAAjwC8AAAABAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "LinePayService.cs",
+              "DocumentMoniker": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Services\\Payments\\LinePayService.cs",
+              "RelativeDocumentMoniker": "OrderFoodPos\\Services\\Payments\\LinePayService.cs",
+              "ToolTip": "D:\\App\\server\\OrderFoodPos\\OrderFoodPos\\Services\\Payments\\LinePayService.cs",
+              "RelativeToolTip": "OrderFoodPos\\Services\\Payments\\LinePayService.cs",
+              "ViewState": "AgIAAFMAAAAAAAAAAIA0wF8AAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-02T09:03:00.074Z",
+              "WhenOpened": "2025-07-12T09:16:28.734Z",
               "EditorCaption": ""
             }
           ]

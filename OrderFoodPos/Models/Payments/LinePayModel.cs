@@ -58,4 +58,14 @@ namespace OrderFoodPos.Models
     }
 
 
+    public class LinePayOfflinePayRequest
+    {
+        public int Amount { get; set; }
+        public string OneTimeKey { get; set; }
+        public string ProductName { get; set; }
+        public string BranchName { get; set; }
+        public string BranchId { get; set; }
     }
+
+
+}
